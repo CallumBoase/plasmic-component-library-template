@@ -99,3 +99,10 @@ import 'your-library-name/dist/assets/style.css';
 This is different to the approach suggested by Andreas Riedmüller in his [Create Component library Fast (using Vite's library mode)](https://dev.to/receter/how-to-create-a-react-component-library-using-vites-library-mode-4lma) article, because Plasmic is most commonly used with nextjs pages router, which does NOT support global CSS import in components from the node_modules folder.
 
 If you're creating a component library for nextjs APP router or some other framework that supports global CSS import from node_modules, you can follow Andreas' approach linked above.
+
+## Publishing
+
+Once ready, you can publish to npm
+1. Change version number in `package.json`
+2. Run `npm publish` in terminal
+3. Recommended: in your github repo create a release corresponding with the commit that you published

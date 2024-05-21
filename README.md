@@ -54,7 +54,7 @@ In your Plasmic project
 4. If CSS is used in your component/s: create an `_app.tsx` file in `./pages/_app.tsx` and copy-paste the following code into it. Replace `your-library-name` with the name of your library
   * If using codegen nextjs
     ```typescript
-    import { PlasmicRootProvider } from "@plasmicapp/react-web";//For codegen. This import will change depending on whether you use loader or codegen
+    import { PlasmicRootProvider } from "@plasmicapp/react-web";
     import type { AppProps } from "next/app";
     import Head from "next/head";
   

@@ -74,7 +74,7 @@ In your Plasmic project
     import type { AppProps } from "next/app";
 
     //Here we import the bundled CSS from the library
-    import 'plasmic-render-markdown/dist/assets/style.css';
+    import 'your-library-name/dist/assets/style.css';
     
     export default function MyApp({ Component, pageProps }: AppProps) {
       return (
@@ -82,21 +82,39 @@ In your Plasmic project
       );
     }
     ```
-5. Register the components for use in plasmic studio (exact method will depend on whether you're using codegen or loader API method with Plasmic)
-  ```typescript
-  // If using codegen: content of pages/plasmic-host.tsx should be
-  import * as React from 'react';
-  import { PlasmicCanvasHost, registerComponent } from '@plasmicapp/react-web/lib/host';
+5. Register the components for use in plasmic studio.
+ * If using codegen with nextjs, `plasmic-host.tsx`:
+   ```typescript
+   import * as React from 'react';
+   import { PlasmicCanvasHost, registerComponent } from '@plasmicapp/react-web/lib/host';
+ 
+   import { YourComponent, renderYourComponentMeta } from "your-library-name";
+ 
+   registerComponent(YourComponent, renderYourComponentMeta);
+ 
+   export default function PlasmicHost() {
+     return <PlasmicCanvasHost />;
+   }
+   ```
+ * If using loader API with nextjs, `plasmic-init.ts`:
+    ```typescript
+    import { initPlasmicLoader } from "@plasmicapp/loader-nextjs";
 
-  import { H1, renderH1Meta, H2, renderH2Meta } from 'your-library-name';
+    import { YourComponent, renderYourComponentMeta } from "your-library-name";
+    
+    export const PLASMIC = initPlasmicLoader({
+      projects: [
+        {
+          id: "your-project-id",
+          token: "your-project-token",
+        },
+      ],
+    
+      preview: false,
+    });
 
-  registerComponent(H1, renderH1Meta);
-  registerComponent(H2, renderH2Meta);
-
-  export default function PlasmicHost() {
-    return <PlasmicCanvasHost />;
-  }
-  ```
+    PLASMIC.registerComponent(YourComponent, renderYourComponentMeta);
+   ```
 
 ## How to handle CSS
 

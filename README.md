@@ -52,23 +52,36 @@ In your Plasmic project
 2. (If previously installed) Uninstall the library (`npm uninstall your-library-name`)
 3. Run `npm install ./path/to/your-library-name-X.X.X.tgz` to install the library based on the local .tgz file
 4. If CSS is used in your component/s: create an `_app.tsx` file in `./pages/_app.tsx` and copy-paste the following code into it. Replace `your-library-name` with the name of your library
-  ```typescript
-  import '@/styles/globals.css'
-  import { PlasmicRootProvider } from "@plasmicapp/react-web";//For codegen. This import will change depending on whether you use loader or codegen
-  import type { AppProps } from "next/app";
-  import Head from "next/head";
+  * If using codegen nextjs
+    ```typescript
+    import { PlasmicRootProvider } from "@plasmicapp/react-web";//For codegen. This import will change depending on whether you use loader or codegen
+    import type { AppProps } from "next/app";
+    import Head from "next/head";
+  
+    //Here we import the bundled CSS from the library
+    import 'your-library-name/dist/assets/style.css';
+  
+    export default function MyApp({ Component, pageProps }: AppProps) {
+      return (
+        <PlasmicRootProvider Head={Head}>
+          <Component {...pageProps} />
+        </PlasmicRootProvider>
+      );
+    }
+    ```
+  * If using loader API with nextjs
+    ```typescript
+    import type { AppProps } from "next/app";
 
-  //Here we import the bundled CSS from the library
-  import 'your-library-name/dist/assets/style.css';
-
-  export default function MyApp({ Component, pageProps }: AppProps) {
-    return (
-      <PlasmicRootProvider Head={Head}>
+    //Here we import the bundled CSS from the library
+    import 'plasmic-render-markdown/dist/assets/style.css';
+    
+    export default function MyApp({ Component, pageProps }: AppProps) {
+      return (
         <Component {...pageProps} />
-      </PlasmicRootProvider>
-    );
-  }
-  ```
+      );
+    }
+    ```
 5. Register the components for use in plasmic studio (exact method will depend on whether you're using codegen or loader API method with Plasmic)
   ```typescript
   // If using codegen: content of pages/plasmic-host.tsx should be

@@ -25,7 +25,8 @@ We have then further modified the template:
 ## How to use
 1. Add your own components to the `lib` folder instead of the example `H1` and `H2` components
 2. Export your components in `lib/main.ts`
-3. Run `npm run build` to build the library. It will be built in the `dist` folder
+3. Update `./vite.config.ts` to exclude any additional packages that you don't want to bundle with your library (see `rollupOptions -> external`)
+4. Run `npm run build` to build the library. It will be built in the `dist` folder
 
 ## Local testing in simple React app (this repo)
 The `./src` folder contains a simple React app which you can use for testing. it is not included in the build, and will not be published if you publish your project to npm.

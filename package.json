@@ -1,42 +1,48 @@
 {
   "name": "plasmic-component-library-template",
-  "version": "0.0.1",
-  "type": "module",
-  "main": "dist/main.js",
-  "types": "dist/main.d.ts",
+  "version": "0.1.0",
+  "description": "Template creating component library to use with Plasmic",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.mjs",
   "files": [
     "dist"
   ],
+  "size-limit": [
+    {
+      "path": "dist/index.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/index.mjs",
+      "limit": "10 KB"
+    }
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc --p ./tsconfig-build.json && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "prepublishOnly": "npm run build"
-  },
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "peerDependencies": {
-    "@plasmicapp/host": "^1.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "build": "tsup-node src/index.tsx --dts --format esm,cjs --target es2019",
+    "test": "TEST_CWD=`pwd` yarn --cwd=../.. test --passWithNoTests",
+    "prepublishOnly": "npm run build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
   },
   "devDependencies": {
-    "@types/node": "^20.12.12",
-    "@types/react": "^18.2.66",
-    "@types/react-dom": "^18.2.22",
-    "@typescript-eslint/eslint-plugin": "^7.2.0",
-    "@typescript-eslint/parser": "^7.2.0",
-    "@vitejs/plugin-react": "^4.2.1",
-    "eslint": "^8.57.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.6",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "typescript": "^5.2.2",
-    "vite": "^5.2.0",
-    "vite-plugin-dts": "^3.9.1"
+    "@size-limit/preset-small-lib": "^7.0.8",
+    "@types/dlv": "^1.1.2",
+    "@types/node": "^17.0.14",
+    "@types/react": "^18.2.33",
+    "size-limit": "^7.0.8",
+    "tslib": "^2.3.1",
+    "tsup": "^7.2.0",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.3.0",
+    "use-deep-compare": "^1.2.1"
+  },
+  "peerDependencies": {
+    "@plasmicapp/host": "1.0.197",
+    "@plasmicapp/query": "0.1.79",
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   }
 }
